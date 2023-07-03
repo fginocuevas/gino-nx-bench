@@ -1,7 +1,7 @@
 {
-  "name": "gino-nx-bench",
+  "name": "user-service",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/gino-nx-bench/src",
+  "sourceRoot": "apps/user-service/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,12 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/gino-nx-bench",
-        "main": "apps/gino-nx-bench/src/main.ts",
-        "tsConfig": "apps/gino-nx-bench/tsconfig.app.json",
-        "assets": ["apps/gino-nx-bench/src/assets"],
+        "outputPath": "dist/apps/user-service",
+        "main": "apps/user-service/src/main.ts",
+        "tsConfig": "apps/user-service/tsconfig.app.json",
+        "assets": ["apps/user-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/gino-nx-bench/webpack.config.js"
+        "webpackConfig": "apps/user-service/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "gino-nx-bench:build"
+        "buildTarget": "user-service:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "gino-nx-bench:build:development"
+          "buildTarget": "user-service:build:development"
         },
         "production": {
-          "buildTarget": "gino-nx-bench:build:production"
+          "buildTarget": "user-service:build:production"
         }
       }
     },
@@ -42,14 +42,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/gino-nx-bench/**/*.ts"]
+        "lintFilePatterns": ["apps/user-service/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/gino-nx-bench/jest.config.ts",
+        "jestConfig": "apps/user-service/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
