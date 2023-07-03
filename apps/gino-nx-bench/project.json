@@ -1,0 +1,64 @@
+{
+  "name": "gino-nx-bench",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gino-nx-bench/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/gino-nx-bench",
+        "main": "apps/gino-nx-bench/src/main.ts",
+        "tsConfig": "apps/gino-nx-bench/tsconfig.app.json",
+        "assets": ["apps/gino-nx-bench/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/gino-nx-bench/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "gino-nx-bench:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "gino-nx-bench:build:development"
+        },
+        "production": {
+          "buildTarget": "gino-nx-bench:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/gino-nx-bench/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/gino-nx-bench/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
