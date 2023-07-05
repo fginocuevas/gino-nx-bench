@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import what3words, {
   ApiVersion,
   Transport,
   What3wordsService,
   axiosTransport,
-  ConvertTo3waOptions
+  ConvertTo3waOptions,
+  ConvertToCoordinatesOptions
 } from '@what3words/api';
 
 @Injectable()
@@ -37,7 +38,26 @@ export class AppService {
     const options: ConvertTo3waOptions = {
       coordinates: coordinates,
     };
-    return this.w3wService.convertTo3wa(options);
+    return await this.w3wService.convertTo3wa(options)
+      .catch(err => {
+        console.error(err);
+        throw new BadRequestException(err);
+      });
+  }
+
+  async convertToCoordinates(dto: { words: string }){
+
+    const { words } = dto;
+
+    const options: ConvertToCoordinatesOptions = {
+      words: words,
+      format: 'json',
+    };
+    return await this.w3wService.convertToCoordinates(options)
+      .catch(err => {
+        console.error(err);
+        throw new BadRequestException(err);
+      });
   }
 
 }
